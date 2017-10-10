@@ -2,10 +2,12 @@ const crytpo = require('crypto');
 const fs = require('graceful-fs');
 const start = new Date().getTime();
 const dir = process.cwd() + '/files';
+const max_chars = process.argv2 || 8;
 
-let chars = 0;
+let i = 0, chars = 0;
 
 console.log(`Working directory: ${dir}`);
+console.log(`Checking strings up to ${max_chars} chars.`)
 
 if (!fs.existsSync(dir)){
   fs.mkdirSync(dir);
@@ -15,7 +17,7 @@ if (fs.readdirSync(dir).length) {
   console.log(`Too many files in directory "${dir}", please delete it..`);
 }
 
-for(var i = 1; i < 1000000; i++) {
+while(chars < max_chars) {
 
   // Lowercase
   const str = i.toString(36);
@@ -33,6 +35,9 @@ for(var i = 1; i < 1000000; i++) {
     let now = new Date().getTime();
     console.log(`Chars: ${chars}, ${Math.round(i / ((now - start) / 1000))} items/second`);
   }
+
+  // Next
+  i++;
 }
 
 function md5(str) {
