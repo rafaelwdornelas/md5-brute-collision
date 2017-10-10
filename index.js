@@ -17,9 +17,6 @@ if (fs.existsSync(dir)){
   fs.mkdirSync(dir);
 }
 
-if (fs.readdirSync(dir).length) {
-}
-
 while(chars <= max_chars) {
 
   // Lowercasels 
