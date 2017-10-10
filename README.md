@@ -2,7 +2,6 @@
 Checks MD5 collission in nodejs
 
 ```sh
-npm install
 node index.js 5
 ```
 
