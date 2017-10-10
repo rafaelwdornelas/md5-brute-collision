@@ -10,12 +10,14 @@ let i = 0, chars = 0;
 console.log(`Working directory: ${dir}`);
 console.log(`Checking strings up to ${max_chars} chars.`)
 
-if (!fs.existsSync(dir)){
+if (fs.existsSync(dir)){
+  console.log(`Directory "${dir}" already exists, please delete it..`);
+  process.exit(1); 
+} else {
   fs.mkdirSync(dir);
 }
 
 if (fs.readdirSync(dir).length) {
-  console.log(`Too many files in directory "${dir}", please delete it..`);
 }
 
 while(chars <= max_chars) {
@@ -49,14 +51,14 @@ function md5(str) {
 
 
 function trySave(str, hash) {
-  fs.open(`${dir}/${hash}`, 'wx', (err, fd) => {
+  fs.open(`${dir}/${hash}`, 'w', (err, fd) => {
     if (err && err.code === 'EEXIST') {
       console.error(`Colission detected for string "${str}" at ${hash}`);
       process.exit(1);
     }
     else if (err && err.code === 'EMFILE') {
       console.error(`Too many open files, backing off...`);
-      child_process.execSync('sleep 5');
+      child_process.execSync(process.platform === 'linux' ? 'SLEEP 5' : 'PING localhost -n 4 >nul');
     } 
     else if (err) {
       console.error(`Problem saving ${hash}: ${err}`);
