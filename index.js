@@ -2,7 +2,7 @@ const crytpo = require('crypto');
 const fs = require('graceful-fs');
 const start = new Date().getTime();
 const dir = process.cwd() + '/files';
-const max_chars = process.argv2 || 8;
+const max_chars = process.argv[2] || 8;
 
 let i = 0, chars = 0;
 
