@@ -1,7 +1,8 @@
 const crytpo = require('crypto');
-const fs = require('graceful-fs');
+const fs = require('fs');
 const start = new Date().getTime();
 const dir = process.cwd() + '/files';
+const child_process = require('child_process');
 const max_chars = process.argv[2] || 8;
 
 let i = 0, chars = 0;
@@ -19,7 +20,7 @@ if (fs.readdirSync(dir).length) {
 
 while(chars <= max_chars) {
 
-  // Lowercase
+  // Lowercasels 
   const str = i.toString(36);
   trySave(str, md5(str));
 
@@ -52,9 +53,15 @@ function trySave(str, hash) {
     if (err && err.code === 'EEXIST') {
       console.error(`Colission detected for string "${str}" at ${hash}`);
       process.exit(1);
-    } else if (err) {
+    }
+    else if (err && err.code === 'EMFILE') {
+      console.error(`Too many open files, backing off...`);
+      child_process.execSync('sleep 5');
+    } 
+    else if (err) {
       console.error(`Problem saving ${hash}: ${err}`);
-    } else {
+    } 
+    else {
       const buffer = new Buffer(str);
       fs.write(fd, buffer, 0, buffer.length, null, () => fs.close(fd));
     }
