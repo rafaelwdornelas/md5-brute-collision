@@ -9,7 +9,7 @@ node index.js 5
 Shows output:
 
 ```
-Working directory: /home/user/projects/sdesalas/md5-clash/files
+Working directory: /home/projects/sdesalas/md5-clash/files
 Checking strings up to 5 chars.
 Chars: 1, 0 items/second
 Chars: 2, 2571 items/second
