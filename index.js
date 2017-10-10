@@ -17,7 +17,7 @@ if (fs.readdirSync(dir).length) {
   console.log(`Too many files in directory "${dir}", please delete it..`);
 }
 
-while(chars < max_chars) {
+while(chars <= max_chars) {
 
   // Lowercase
   const str = i.toString(36);
@@ -39,6 +39,8 @@ while(chars < max_chars) {
   // Next
   i++;
 }
+
+console.log('Done!');
 
 function md5(str) {
   return crytpo.createHash('md5').update(str).digest('hex').toString();
