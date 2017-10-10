@@ -1,7 +1,7 @@
 const crytpo = require('crypto');
 const fs = require('fs');
 const start = new Date().getTime();
-const dir = process.cwd() + '/files';
+const dir = process.cwd() + '/hashes';
 const child_process = require('child_process');
 const max_chars = process.argv[2] || 8;
 
